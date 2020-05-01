@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style href="style.css" ></style>
+    
     <title>Weather</title>
 </head>
 <body>
     <div class="controler">
         <div>
             <input id = "city"> 
-        </div>               
-        <input id = "submit"  type="button" value="Submit">
-        <legend>Unit</legend>
+        </div>
+        <div class="units">Units
         <label>
-            <input type="radio" name="temp" value="F">F
+            <input type="radio" id="F" name="temp" value="F">F
         </label>
         <label>
-            <input type="radio" name="temp" value="C">C
-        </label>        
+            <input type="radio" id="C" name="temp" value="C" checked>C
+        </label>
+        </div>
+        <input id = "submit"  type="button" value="Submit">       
+    </div>
+    <div id="weatherDisplay">
+
     </div>
     <script src="main.js"></script>
 </body>
