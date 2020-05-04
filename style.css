@@ -37,11 +37,8 @@ ul {
     padding-inline-start: 0px;
     margin: 10px;
 }
-/* ul li{
-    display: flex;        
-    justify-content: flex-start;
-    flex-direction: row;
-    align-content: flex-start;
-} */
+ul li{
+    background-color: rgb(211, 99, 58);    
+}
 
 

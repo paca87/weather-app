@@ -15,10 +15,10 @@
         </div>
         <div class="units">Units
         <label>
-            <input type="radio" id="F" name="temp" value="F">F
+            <input type="radio" id="F" name="temp" onclick="handleClick(this);" value="°F">F
         </label>
         <label>
-            <input type="radio" id="C" name="temp" value="C" checked>C
+            <input type="radio" id="C" name="temp" onclick="handleClick(this);" value="°C" checked>C
         </label>
         </div>
         <input id = "submit"  type="button" value="Submit">       
