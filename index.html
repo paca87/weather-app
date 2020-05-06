@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <style href="style.css" ></style>
-    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <style href="style.css"></style>
     <title>Weather</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="controler">
-        <div>
-            <input id = "city"> 
-        </div>
-        <div class="units">Units
+      <div>
+        <input id="city" type="text"/>
+      </div>
+      <div class="units-container">
+        Units
         <label>
-            <input type="radio" id="F" name="temp" onclick="handleClick(this);" value="°F">F
+          <input
+            type="radio"
+            id="F"
+            class="unit-selector"
+            onchange="handleClick(this);"
+            value="°F"
+          />F
         </label>
         <label>
-            <input type="radio" id="C" name="temp" onclick="handleClick(this);" value="°C" checked>C
+          <input
+            type="radio"
+            id="C"
+            class="unit-selector"
+            onchange="handleClick(this);"
+            value="°C"
+            checked
+          />C
         </label>
-        </div>
-        <input id = "submit"  type="button" value="Submit">       
+      </div>
+      <input id="submit" type="button" value="Submit" />
     </div>
-    <div id="weatherDisplay">
-
-    </div>
+    <div id="city-name"></div>    
+    <div id="weatherDisplay"></div>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>
