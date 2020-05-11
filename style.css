@@ -1,44 +1,61 @@
-body{
-    background-color: grey;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;     
+body {
+  background-color: grey;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
-.controler{
-    display: flex;
-    align-items: center;    
-    flex-direction: column;
-    justify-content: center;          
-    width: 40%;
-    color: ivory;    
+.controler {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 40%;
+  color: ivory;
+  
 }
-.units{
-    display: flex;   
-    flex-direction: column;
-    align-content: center;
-    border-width: 2px;
-    border:darkblue;
+.controler text button{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 }
-#weatherDisplay{
-    display: flex;
-    flex-direction: row;
-    width: 90%;
-    justify-content: space-evenly;
-    border: 3px;
+.units-container {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  border-width: 2px;
+  border: darkblue;
+}
+.form-design{
+    border: black;
+    margin: 5px;
+    
+}
+#weatherDisplay {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  justify-content: space-evenly;
+  border: 3px;
+}
+#city-name {
+  margin-top: 15px;
+  font-size: medium;
+  /* color: rgb(211, 99, 58); */
 }
 ul {
+  display: flex;
+  list-style: none;
+  justify-content: flex-start;
+  align-content: center;
+  flex-direction: column;
+  margin: 3px;
+  padding-inline-start: 0px;
+  margin: 10px;
+}
+ul li {
+  background-color: rgb(211, 99, 58);
+}
+#mainReport{
     display: flex;
-    list-style: none;    
-    justify-content: flex-start;
-    align-content: center;
-    flex-direction: column;
-    margin: 3px;
-    padding-inline-start: 0px;
-    margin: 10px;
+    font-size: large;
 }
-ul li{
-    background-color: rgb(211, 99, 58);    
-}
-
-
