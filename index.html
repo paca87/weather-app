@@ -3,22 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />    
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap"
+      rel="stylesheet"
+    />
     <title>Weather</title>
   </head>
   <body>
     <div class="controler">
-      <div class="form-design">          
-        <input id="city" type="text" placeholder="City"/>
+      <div class="form-design">
+        <input id="city" type="text" placeholder="City" />
       </div>
-      <div class="units-container form-design">
+      <div id="unitDIV" class="units-container form-design">
         Units
         <label>
           <input
             type="radio"
             id="Fahrenheit"
             class="unit-selector"
-            onchange="handleClick(this);"
             value="°F"
           />F
         </label>
@@ -27,22 +30,22 @@
             type="radio"
             id="Celcius"
             class="unit-selector"
-            onchange="handleClick(this);"
             value="°C"
             checked
           />C
         </label>
       </div>
-      <input id="submit" class="form-design button-design" type="button" value="Submit" />
+      <input
+        id="submit"
+        class="form-design button-design"
+        type="button"
+        value="Submit"
+      />
     </div>
-    <div>
-        <div id="mainReport"></div>
-        <div id="mainTemperature"></div>
-        <div id="FahrenheitLink"></div>
-        <div id="CelciusLink"></div>
-        <div id="city-name"></div>
-</div>
-        
+    <div id="mainReport">
+      <div id="city-name"></div>
+    </div>
+
     <div id="weatherDisplay"></div>
     <script src="main.js"></script>
   </body>
