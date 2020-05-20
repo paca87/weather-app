@@ -153,7 +153,7 @@ const getInfoAPI = (cityName, keyAPI) => {
       //   // Examine the text in the response
       response.json().then(function (data) {
         radioBCelsius.checked = true;
-        radioBfahrenheit.checked = false;
+        radioBFahrenheit.checked = false;
         let {
           city: { name: myCity, country: myCountry },
         } = data;
