@@ -130,9 +130,9 @@ const drawList = () => {
 const handleClick = (myRadio) => {
   myRadio.checked = true;
   if (myRadio.value !== myList[0].unit) {
-    myRadio.value === "°C"
-      ? (radioBfahrenheit.checked = false)
-      : (radioBCelsius.checked = false);
+    const isCelsius = myRadio.value === "°C";
+    radioBFahrenheit.checked  = !isCelsius;
+    radioBCelsius.checked = isCelsius;
     converTemperature(myRadio.value);
   }
   drawList();
