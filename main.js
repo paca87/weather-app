@@ -9,7 +9,7 @@ const submitButton = document.querySelector("#submit");
 const textBoxCity = document.querySelector("#city");
 let weatherDisplay = document.querySelector("#weatherDisplay");
 let radioBCelsius = document.querySelector("#Celcius");
-let radioBfahrenheit = document.querySelector("#Fahrenheit");
+let radioBFahrenheit = document.querySelector("#Fahrenheit");
 let unitDIV = document.querySelector("#unitDIV");
 let mainReport = document.querySelector("#mainReport");
 
@@ -25,7 +25,7 @@ const getTime = (time) => {
   return temp[0] >= 12 ? `${temp[0]}pm` : `${temp[0]}am`;
 };
 
-const giveMeUnit = () => {
+const getUnitValue = () => {
   let radioF = document.querySelector("#Fahrenheit");
   return radioF.checked ? "°F" : "°C";
 };
@@ -56,11 +56,11 @@ const createMyList = (list) => {
     } = list[i];
     let tempOriginal = temp / 10;
     tempOriginal = tempOriginal.toFixed();
-    let myTemperature = setTemperature(tempOriginal, giveMeUnit());
+    let myTemperature = setTemperature(tempOriginal, getUnitValue());
     let forecast = {
       icon: getIconURL(icon),
       temp: myTemperature,
-      unit: giveMeUnit(),
+      unit: getUnitValue(),
       humi: humidity,
       main: main,
       time: getTime(dt_txt),
