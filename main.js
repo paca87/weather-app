@@ -169,7 +169,7 @@ const getInfoAPI = (cityName, keyAPI) => {
 getInfoAPI("San Diego", key);
 submitButton.addEventListener("click", (event) => {
   weatherDisplay.innerHTML = "";
-  let cityName = textBoxCity.value;
+  let { value: cityName } = textBoxCity;
   cityName !== "" ? getInfoAPI(cityName, key) : alert("enter a city");
 });
 
