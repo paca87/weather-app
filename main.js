@@ -31,7 +31,7 @@ const giveMeUnit = () => {
 };
 
 const getIconURL = (iconName) =>
-  ` http://openweathermap.org/img/wn/${iconName}@2x.png`;
+  `http://openweathermap.org/img/wn/${iconName}@2x.png`;
 
 const converTemperature = (myUnit) => {
   for (let i = 0; i < myList.length; i++) {
