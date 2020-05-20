@@ -156,10 +156,8 @@ const getInfoAPI = (cityName, keyAPI) => {
         radioBCelsius.checked = true;
         radioBfahrenheit.checked = false;
         let {
-          city: { name, country },
+          city: { name: myCity, country: myCountry },
         } = data;
-        myCity = name;
-        myCountry = country;
         createMyList(data.list);
         drawList();
       });
