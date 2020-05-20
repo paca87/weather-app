@@ -35,7 +35,7 @@ const getIconURL = (iconName) =>
 
 const converTemperature = (myUnit) => {
   for (let i = 0; i < myList.length; i++) {
-    let temp = myList[i].temp;
+    let { temp } = myList[i];
     myList[i].unit = myUnit;
     if (myUnit === "°F") {
       temp = ((temp * 9) / 5 + 32).toFixed();
