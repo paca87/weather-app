@@ -1,97 +1,179 @@
-
-// let key = "1769e6366be36237e61944ffeec72d70";
-let myList = [];
-const numOfReports = 7;
-let weatherDisplay = document.querySelector("#weatherDisplay");
-
-//let p = fetch('http://api.openweathermap.org/data/2.5/forecast?q=London&appid=41e2a23f88602f4cdbe27277677d0639');
-let p = fetch("weather-app.json");
-p.then(function (response) {
-  if (response.status !== 200) {
-    console.log(
-      "Looks like there was a problem. Status Code: " + response.status
-    );
-    return;
-  }
-  // Examine the text in the response
-  response.json().then(function (data) {
-    console.log(data.list);
-    createMyList(data.list);
-    drawList();
-    console.log(myList);
-  });
-}).catch(function (err) {
-  console.log("Fetch Error :-S", err);
-});
 //°C
 //°F
-function createMyList(list) {
-  for (let i = 0; i < numOfReports; i++) {
-    const element = list[i];
-    let tempOriginal = element.main.temp / 10;
-    tempOriginal = tempOriginal.toFixed();
-    let myTemperature = setTemperature(tempOriginal, giveMeUnit());
-    let forecast = {
-      icon: getIconURL(element.weather[0].icon),
-      temp: myTemperature,
-      unit: giveMeUnit(),
-      humi: element.main.humidity,
-      main: element.weather[0].main,
-    };
-    myList.push(forecast);
-  }
-}
+let key = "1769e6366be36237e61944ffeec72d70";
+let myList = [];
+let myCity = "";
+let myCountry = "";
+const numOfReports = 7;
+const submitButton = document.querySelector("#submit");
+const textBoxCity = document.querySelector("#city");
+let weatherDisplay = document.querySelector("#weatherDisplay");
+let radioBCelsius = document.querySelector("#Celcius");
+let radioBFahrenheit = document.querySelector("#Fahrenheit");
+let unitDIV = document.querySelector("#unitDIV");
+let mainReport = document.querySelector("#mainReport");
+
 //Agarrar la temp inicial q viene en °C y
 //la almacena en la unidad correcta
 //sobre la base del radiobutton seleccionado
-function setTemperature(temp, unit) {
-  return unit === "F" ? (temp * 9) / 5 + 32 : temp;
-}
-function drawList() {  
-    weatherDisplay.innerHTML = "";
-  for (let i = 0; i < myList.length; i++) {
-    const element = myList[i];
-    let ulElement = document.createElement("ul");
-    let icon = document.createElement("img");
-    let liTemp = document.createElement("li");
-    let liHum = document.createElement("li");
-    let liMain = document.createElement("li");
-    icon.src = element.icon;
-    liTemp.innerHTML = `Temp: ${element.temp}${element.unit}`;
-    liHum.innerHTML = `Hum: ${element.humi}%`;
-    liMain.innerHTML = `${element.main}`;
-    ulElement.appendChild(icon);
-    ulElement.appendChild(liTemp);
-    ulElement.appendChild(liHum);
-    ulElement.appendChild(liMain);
-    weatherDisplay.appendChild(ulElement);
-  }
-}
+const setTemperature = (temp, unit) =>
+  unit === "F" ? (temp * 9) / 5 + 32 : temp;
 
-function giveMeUnit() {
-  let radioF = document.querySelector("#F");
+const getTime = (time) => {
+  let temp = time.split(" ");
+  temp = temp[1].split(":");
+  return temp[0] >= 12 ? `${temp[0]}pm` : `${temp[0]}am`;
+};
+
+const getUnitValue = () => {
+  let radioF = document.querySelector("#Fahrenheit");
   return radioF.checked ? "°F" : "°C";
-}
-function getIconURL(iconName) {
-  return ` http://openweathermap.org/img/wn/${iconName}@2x.png`;
-}
+};
 
-function converTemp(unit) {
+const getIconURL = (iconName) =>
+  `http://openweathermap.org/img/wn/${iconName}@2x.png`;
+
+const converTemperature = (myUnit) => {
   for (let i = 0; i < myList.length; i++) {
-    const element = myList[i];
-    element.unit = unit;
-    if (unit === "°F") {
-        element.temp = ((element.temp * 9) / 5 + 32).toFixed();
+    let { temp } = myList[i];
+    myList[i].unit = myUnit;
+    if (myUnit === "°F") {
+      temp = ((temp * 9) / 5 + 32).toFixed();
+    } else {
+      temp = (((temp - 32) * 5) / 9).toFixed();
     }
-    else{
-        element.temp = ((element.temp - 32) * 5/9).toFixed();
-    }
+    myList[i].temp = temp;
   }
-}
-function handleClick(myRadio) {
+};
+
+const createMyList = (list) => {
+  myList = [];
+  for (let i = 0; i < numOfReports; i++) {
+    const {
+      dt_txt,
+      main: { temp, humidity },
+      weather: [{ main, icon }],
+    } = list[i];
+    let tempOriginal = temp / 10;
+    tempOriginal = tempOriginal.toFixed();
+    let myTemperature = setTemperature(tempOriginal, getUnitValue());
+    let forecast = {
+      icon: getIconURL(icon),
+      temp: myTemperature,
+      unit: getUnitValue(),
+      humi: humidity,
+      main: main,
+      time: getTime(dt_txt),
+    };
+    myList.push(forecast);
+  }
+};
+
+const drawList = () => {
+  mainReport.innerHTML = "";
+  //Div para City
+  let cityNameDisplay = document.createElement("div");
+  cityNameDisplay.className = "main-city";
+  cityNameDisplay.innerHTML = `${myCity}, ${myCountry}`;
+  mainReport.appendChild(cityNameDisplay);
+  //Div para los partes
+  let forecastList = document.createElement("div");
+  forecastList.className = "forecast-list";
+  mainReport.appendChild(forecastList);
+  //Agregar Partes
+  for (let i = 0; i < myList.length; i++) {
+    const { temp, unit, humi, time, icon: iconSrc } = myList[i];
+
+    let mainTime = document.createElement("div");
+    mainTime.className = "main-time";
+    mainTime.innerHTML = time;
+
+    let mainImg = document.createElement("img");
+    mainImg.src = iconSrc;
+
+    let mainVariables = document.createElement("div");
+    mainVariables.className = "main-variables";
+    let layoutTemperature = document.createElement("div");
+    layoutTemperature.className = "layout-temperature";
+    let layoutHumidity = document.createElement("div");
+
+    let mainTemperature = document.createElement("div");
+    mainTemperature.innerHTML = temp;
+    mainTemperature.className = "main-temperature";
+
+    let mainUnit = document.createElement("div");
+    mainUnit.innerHTML = unit;
+    mainUnit.className = "main-unit";
+
+    layoutTemperature.appendChild(mainTemperature);
+    layoutTemperature.appendChild(mainUnit);
+
+    let mainHumidity = document.createElement("div");
+    mainHumidity.innerHTML = `${humi}%`;
+    mainHumidity.className = "main-humidity";
+    layoutHumidity.appendChild(mainHumidity);
+    mainVariables.appendChild(layoutTemperature);
+    mainVariables.appendChild(layoutHumidity);
+
+    let singleFullReport = document.createElement("div");
+    singleFullReport.className = "single-full-report";
+    let singleReportInfo = document.createElement("div");
+    singleReportInfo.className = "single-report";
+    singleReportInfo.appendChild(mainImg);
+    singleReportInfo.appendChild(mainVariables);
+    singleFullReport.appendChild(mainTime);
+    singleFullReport.appendChild(singleReportInfo);
+    forecastList.appendChild(singleFullReport);
+  }
+};
+
+const handleClick = (myRadio) => {
+  myRadio.checked = true;
   if (myRadio.value !== myList[0].unit) {
-    converTemp(myRadio.value);
+    const isCelsius = myRadio.value === "°C";
+    radioBFahrenheit.checked  = !isCelsius;
+    radioBCelsius.checked = isCelsius;
+    converTemperature(myRadio.value);
   }
   drawList();
-}
+};
 
+const getInfoAPI = (cityName, keyAPI) => {
+  let promise = fetch(
+    `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${keyAPI}`
+  );
+  promise
+    .then(function (response) {
+      if (response.status !== 200) {
+        console.error(
+          "Looks like there was a problem. Status Code: " + response.status
+        );
+        return;
+      }
+      //   // Examine the text in the response
+      response.json().then(function (data) {
+        radioBCelsius.checked = true;
+        radioBFahrenheit.checked = false;
+        let {
+          city: { name: myCity, country: myCountry },
+        } = data;
+        createMyList(data.list);
+        drawList();
+      });
+    })
+    .catch(function (err) {
+      console.log("Fetch Error :-S", err);
+    });
+};
+
+getInfoAPI("San Diego", key);
+submitButton.addEventListener("click", (event) => {
+  weatherDisplay.innerHTML = "";
+  let { value: cityName } = textBoxCity;
+  cityName !== "" ? getInfoAPI(cityName, key) : alert("enter a city");
+});
+
+unitDIV.addEventListener("click", (event) => {
+  let { target } = event;
+  if (target.type == "radio") handleClick(target);
+});
